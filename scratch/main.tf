@@ -1,28 +1,23 @@
-# Configure provider
-provider "google" {
-  credentials = file("../terraform-test.json")
-
-  project = "spoved-iac-demo"
-  region  = "us-central1"
-  zone    = "us-central1-c"
-}
-
-# User/pass for k8s cluster
-variable "pw" {
-  default = "acomplicatedpassword"
-}
 variable "un" {
-  default = "k8s-admin"
+  default = "admin-user"
+}
+variable "pw" {
+  default = "averycomplicatedpassword"
 }
 
-resource "google_container_cluster" "gke-cluster" {
-  name               = "spoved-iac-demo-cluster"
-  network            = "default"
-  initial_node_count = 3
-
-  master_auth {
-    username = var.un
-    password = var.pw
-  }
-
+module "cluster" {
+  source   = "./cluster"
+  un = var.un
+  pw = var.pw
 }
+
+#module "app" {
+#  source   = "./app"
+#  host     = module.cluster.endpoint
+#  un = var.un
+#  pw = var.pw
+#
+#  client_cert     = module.cluster.client_cert
+#  client_key      = module.cluster.client_key
+#  cluster_ca_cert = module.cluster.cluster_ca_cert
+#}
