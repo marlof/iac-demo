@@ -50,3 +50,32 @@ gcloud init
 ```
 * Login when prompted
 * Select a project created previously, or create a new one
+
+### Install Terraform
+Visit the [Terraform download page](https://www.terraform.io/downloads.html) to determine the appropriate package for your OS, copy the link target and use it with `wget` to retrieve the package:
+```bash
+wget -O terraform.zip https://releases.hashicorp.com/terraform/0.12.20/terraform_0.12.20_linux_amd64.zip
+```
+Unzip:
+```bash
+sudo unzip -d /opt/terraform terraform.zip
+```
+Update .profile to add path entry and source it:
+```bash
+echo "PATH=${PATH}:/opt/terraform" >> ~/.profile && . ~/.profile
+```
+Verify install:
+```bash
+# terraform --version
+Terraform v0.12.20
+```
+
+### Create GCP Service Account for Terraform
+* Log in to GCP Console, from menu select "APIs & Services" followed by "Credentials"
+* Click "+ CREATE CREDENTIALS" and select "Service account" from the menu
+* Enter a service account name, click "CREATE"
+* Select "Project" from the role menu, choose "Editor" from the sub-menu, click "CONTINUE"
+* On the next screen, click "+ CREATE KEY"
+  * Select "JSON" as the key type 
+  * Click "CREATE" and save the key file
+
