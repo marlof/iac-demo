@@ -1,5 +1,5 @@
 provider "google" {
-  credentials = file("../../terraform-test.json")
+  credentials = file("../terraform-test.json")
 
   project = "spoved-iac-demo"
   region  = "us-central1"
