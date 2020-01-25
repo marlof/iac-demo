@@ -1,29 +1,33 @@
-# Configure provider
-provider "google" {
-  credentials = file("../../../terraform-test.json")
-
-  project = "spoved-iac-demo"
-  region  = "us-central1"
-  zone    = "us-central1-c"
-}
-
-# User/pass for k8s cluster
+# User/pass for k8s cluster, GCP credentials file
 variable "pw" {}
 variable "un" {}
+variable "creds" {}
 
+# Configure provider
+provider "google" {
 
-resource "google_container_cluster" "gke-cluster" {
-  name               = "spoved-iac-demo-cluster"
-  network            = "default"
-  initial_node_count = 3
+    # Path to creds file, relative to cwd when calling terraform
+    credentials = var.creds
 
-  master_auth {
-    username = var.un
-    password = var.pw
-  }
+    project = "spoved-iac-demo"
+    region  = "us-central1"
+    zone    = "us-central1-c"
 }
 
+# GKE cluster definition
+resource "google_container_cluster" "gke-cluster" {
+    name               = "spoved-iac-demo-cluster"
+    network            = "default"
 
+    initial_node_count = 3
+
+    master_auth {
+        username = var.un
+        password = var.pw
+    }
+}
+
+# Outputs required by app module when creating K8s resources
 output "client_cert" {
   value     = "${google_container_cluster.gke-cluster.master_auth.0.client_certificate}"
   sensitive = true
