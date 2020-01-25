@@ -79,3 +79,10 @@ Terraform v0.12.20
   * Select "JSON" as the key type 
   * Click "CREATE" and save the key file
 
+### Enable Kubernetes Engine API
+* In GCP Console, select "APIs & Services" followed by "Dashboard"
+* Click "+ ENABLE APIS AND SERVICES"
+* In the search box, enter "Kubernetes"
+* Select "Kubernetes Engine API"
+* Click "ENABLE"
+
