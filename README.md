@@ -21,3 +21,32 @@ The challenge:
 ### My Assumptions:
 * Google Cloud account set up and ready to go
 * No Google Cloud SDK or Terraform install locally
+
+### Install & Initialise Google Cloud SDK
+
+Enable `apt-transport-https` if not already done:
+```bash
+sudo apt-get install apt-transport-https ca-certificates gnupg
+```
+
+Add the Google repo as a package source:
+```bash
+echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+```
+
+Add Google Cloud's public key:
+```bash
+curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
+```
+
+Update local package lists and install the Google Cloud SDK package:
+```bash
+sudo apt-get update && sudo apt-get install google-cloud-sdk
+```
+
+Initialise the Google Cloud SDK:
+```bash
+gcloud init
+```
+* Login when prompted
+* Select a project created previously, or create a new one
