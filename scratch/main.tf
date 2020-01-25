@@ -8,8 +8,12 @@ provider "google" {
 }
 
 # User/pass for k8s cluster
-variable "un" {}
-variable "pw" {}
+variable "pw" {
+  default = "acomplicatedpassword"
+}
+variable "un" {
+  default = "k8s-admin"
+}
 
 resource "google_container_cluster" "gke-cluster" {
   name               = "spoved-iac-demo-cluster"
