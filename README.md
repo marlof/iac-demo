@@ -20,7 +20,7 @@ The challenge:
 
 ### My Assumptions:
 * Google Cloud account set up and ready to go
-* No Google Cloud SDK or Terraform install locally
+* No Google Cloud SDK or Terraform pre-installed locally
 
 ### Install & Initialise Google Cloud SDK
 
@@ -86,3 +86,18 @@ Terraform v0.12.20
 * Select "Kubernetes Engine API"
 * Click "ENABLE"
 
+### Deploy
+Call `terraform apply` in the directory into which this repo has been cloned.  You will be prompted for:
+* A username to set for the k8s cluster
+* A password to set for the k8s cluster
+* The path to the credentials JSON file previously downloaded when creating the service account
+
+The Terraform configuration in this repo will create a 3-node k8s cluster running the DockerCon EU '17 Wordsmith demo app, containing the following resources:
+* A single replica DB deployment and service
+* A triple replica API deployment and service
+* A triple replica web/frontend deployment and service with LoadBalancer
+
+Access the app on port 8081 of the LoadBalancer IP.
+
+### Cleanup
+Call `terraform destroy` to clean up.
